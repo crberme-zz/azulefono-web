@@ -1,0 +1,593 @@
+/* CSS de uso general */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    margin: 0;
+}
+
+* {
+    font-family: 'Roboto';
+}
+
+.alinearIzquierda {
+    margin-right: auto;
+}
+
+.alinearDerecha {
+    margin-left: auto;
+}
+
+.elementoOculto {
+    display: none !important;
+}
+
+.material-icons {
+    vertical-align: middle !important;
+    width: 24px;
+}
+
+/* CSS de la cabecera */
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 1px #BBBBBB;
+    z-index: 3;
+}
+
+header > div:first-child {
+    margin-left: 20px;
+    /* En teoría sería mejor utilizar padding-left en el header, pero esto provoca que el elemento
+    de la derecha se salga 20px de la pantalla */
+}
+
+.altura60 {
+    height: 60px;
+}
+
+.altura120 {
+    height: 120px;
+}
+
+/* -- Elementos de la cabecera */
+header > * { /* Para dar consistencia a los elementos */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 60px;
+    line-height: 60px;
+}
+
+#cabeceraLogo {
+    margin-right: 20px;
+    line-height: 100%;
+}
+
+#cabeceraLogo img {
+    height: 1.25em;
+    vertical-align: middle;
+}
+
+#cabeceraBusqueda {
+    width: 100%;
+    margin: 0 60px;
+    padding: 0 5px;
+}
+
+#cabeceraBusqueda > input[type="text"] {
+    height: 50%;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#cabeceraBusqueda > input[type="button"] {
+    height: 50%;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.cabeceraBusquedaAlt { /* La búsqueda en vistas de tablet y móvil */
+    display: flex !important;
+    height: 60px;
+}
+
+#cabeceraBusqueda input[type="button"], button {
+    font-family: 'Roboto';
+    background-color: #DDDDDD;
+    border: none;
+
+}
+
+#cabeceraBusqueda input[type="button"]:focus, button:focus {
+    outline: 0;
+}
+
+#cabeceraBusqueda input[type="button"]:active, button:active {
+    background-color: #CCCCCC;
+}
+
+#resultadosBusqueda {
+    position: absolute;
+    left: 0;
+    top: 13px;
+    border-radius: 0 0 5px 5px;
+}
+
+.resultadoBusqueda {
+    display: block;
+    width: 281px;
+    margin: 0;
+    padding: 0 20px; 
+    box-sizing: border-box;
+    background-color: #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #000000;
+}
+
+.resultadoBusqueda:hover {
+    background-color: #DDDDDD;
+}
+
+.resultadoBusqueda:last-child {
+    border-bottom: none;
+    border-radius: 0 0 5px 5px;
+}
+
+/* CSS para las migas */
+.migas {
+    line-height: 60px;
+    margin: 60px 0 0 0 ;
+    padding: 0 0 0 20px;
+    background-color: #e3f2fd;
+}
+
+.migas * {
+    vertical-align: middle;
+    text-decoration: none;
+    color: #000000;
+}
+
+.migas a:hover {
+    text-decoration: underline;
+}
+
+.migas p {
+    display: inline;
+}
+
+.migas > p:last-child {
+    font-weight: bold;
+}
+
+/* CSS para el menu lateral */
+#menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 2;
+}
+
+#menu * {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#menu ul.nivel1 > li, #menu ul.nivel2 > li, #menu > h3 {
+    line-height: 40px;
+     /* Todos el texto del menú tienen 40px de alto. Así es más consistente visualmente. */
+}
+
+#menu ul {
+    list-style: none;
+}
+
+#menu ul.nivel1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* He utilizado las flexbox para distribuir las columnas de categorías de manera proporcional
+    al tamaño de la ventana */
+    padding: 0;
+}
+
+#menu ul.nivel1 > h3 { /* El título "Categorías" */
+    flex-basis: 100%;
+    margin-bottom: 10px;
+}
+
+#menu ul.nivel1 > li {
+    width: 25%;
+}
+
+#menu a { /* Los textos del menú */
+    display: inline-block;
+    width: 100%;
+}
+
+#menu ul.nivel1 > li > a { /* El texto de las categorías del primer nivel */
+    font-weight: bold;
+} 
+
+#menu ul.nivel2 {
+    padding: 0; /* No estoy muy seguro de por qué esto hace falta */
+}
+
+#overlay { /* Revisar este nombre */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    z-index: 1;
+    content: "&nbsp";
+}
+
+/* CSS para la caja que contiene el contenido de la página */
+.contenido {
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.contenido > * { /* Separa los elementos verticalmente */
+    margin-top: 30px;
+}
+
+/* -- Elementos con CSS especial (solo aparecen una vez, etc.) */
+#novedades { /* Pase de imágenes */
+    height: 225px;
+    margin-top: 60px;
+    padding: 0;
+}
+
+#novedades img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* Con este CSS fuerzo a la imagen a rellenar la caja que la contiene sin deformarse */
+}
+
+#botonesInferioresInicio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* CSS de las secciones dentro del contenido */
+.contenedorSeccion {
+    overflow: hidden;
+}
+
+.contenedorSeccion .nombreSeccion { /* Títulos de las secciones */
+    font-size: 1.75em;
+    padding: 0;
+}
+
+/* CSS para el pie de la página */
+footer {
+    clear: both;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: #FFFFFF;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: #BBBBBB;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #000000;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+footer a:focus {
+    outline: none;
+}
+
+/* CSS de elementos de uso común */
+
+/* -- Títulos */
+.nombreSeccion {
+    font-size: 1.25em;
+    margin: 0;
+    padding: 5px 0;
+}
+
+/* -- Cajas de texto */
+input[type="text"], textarea {
+    font-family: 'Roboto';
+    padding: 0 10px;
+    background-color: #EEEEEE;
+    border-width: 0;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: 0;
+}
+
+/* -- Enlaces que actuan como botones (para la cabecera y el menú */
+.enlaceAlt {
+    cursor: pointer;
+    user-select: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    /* Por si es utilizado en etiquetas a */
+    text-decoration: none;
+    color: #000000;
+}
+
+.enlaceAlt:hover {
+    background-color: #DDDDDD88;
+}
+
+.enlaceAltPulsado {
+    background-color: #DDDDDD !important;
+}
+
+/* CSS para las parrillas de productos */
+.parrilla {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+}
+
+.parrilla .parrillaItem {
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+.parrilla .parrillaItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.parrilla .parrillaItem a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    color: #000000;
+    box-sizing: border-box;
+}
+
+.parrilla .parrillaItem a:hover {
+    font-weight: bold;
+}
+
+.parrilla .parrillaItem p {
+    text-align: center;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* CSS específico de la parrilla de una línea */
+#parrillaHorizontal {
+    overflow: auto;
+}
+
+#parrillaHorizontal .parrilla {
+    margin-bottom: 10px; /* Separación entre la parrilla y la barra de desplazamiento */
+}
+
+#parrillaHorizontal .parrillaItem:first-child {
+    margin-right: 20px;
+}
+
+#parrillaHorizontal .parrillaItem:last-child {
+    margin-left: 20px;
+}
+
+#parrillaHorizontal .parrillaItem + .parrillaItem {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* CSS para la página de contacto */
+#contenedorFormulario {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.contenedorInput, .contenedorTextarea {
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.contenedorTextarea {
+    height: 75%;
+    margin-bottom: 20px;
+}
+
+.contenedorInput > label, .contenedorTextarea label {
+    display: inline-block;
+    width: 200px;
+    line-height: 60px;
+}
+
+.contenedorInput > input[type="text"], .contenedorTextarea textarea {
+    margin: auto 0;
+    width: 100%;
+    height: 75%;
+    min-height: 30px;
+    box-sizing: border-box;
+}
+
+.contenedorTextarea textarea {
+    height: 195px;
+    resize: none;
+}
+
+.contenedorBotones {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* CSS para hacer la página responsive */
+
+/* -- Ordenador */
+@media (min-width:769px) {
+
+    header {
+        height: 60px !important; /* Evita que la cabecera se quede desplegada al redimensionar la ventana */
+    }
+    
+    #cabeceraBotonBusqueda {
+        display: none; /* Oculta el botón de abrir la búsqueda (esta está siempre visible */
+    }
+}
+
+/* -- Tablet */
+@media (max-width:768px) {
+
+    #cabeceraBusqueda { /* Oculta la búsqueda y la mueve a la segunda línea */
+        display: none;
+        position: absolute;
+        top: 60px;
+        margin: 0;
+    }
+    
+    #cabeceraBusqueda > input[type="text"] {
+        width: 50%;
+        margin-left: auto;
+    }
+
+    #cabeceraBusqueda > input[type="button"] {
+        margin-right: auto;
+    }
+
+    #novedades {
+        height: 200px;
+    }
+
+    #menu ul.nivel1 > li { /* Convierte el menú en una única columna */
+        width: 100%;
+    }
+
+    .contenedorInput, .contenedorTextarea {
+        flex-wrap: wrap;
+    }
+
+    
+    #contenedorFormulario {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+}
+
+/* -- Móvil */
+@media (max-width: 320px) {
+
+    body::-webkit-scrollbar { 
+        width: 0 !important
+    }
+
+    header, footer {
+        min-width: 320px; /* Evita que se rompa la página, hay que cambiarlo */
+    }
+
+    header { /* Cambia la disposición de la cabecera */
+        flex-wrap: wrap;
+    }
+
+    #cabeceraLogo {
+        margin: 0;
+        width: 100%;
+    }
+
+    #cabeceraLogo a { /* El a que contiene el img del logo */
+        margin: 0 auto;
+    }
+
+    #cabecera > .enlaceAlt {
+        position: relative;
+        top: -60px;
+    }
+
+    #cabecera > .enlaceAlt > p { /* Oculta el texto de los botones de la cabecera */
+        display: none;
+    }
+
+    #novedades {
+        height: 150px;
+    }
+
+    .contenedorSeccion .nombreSeccion {
+        text-align: center;
+    }
+
+    .parrilla {
+        justify-content: center;
+    }
+
+    #parrillaHorizontal .parrilla {
+        flex-wrap: wrap;
+    }
+
+    #parrillaHorizontal .parrillaItem {
+        margin: 20px;
+    }
+
+    #botonesInferioresInicio .enlaceAlt {
+        width: 100%;
+        text-align: center;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="utf-8" />
+    <title>Inicio - buscaPhone</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <script src="/js/main.js"></script>
+    <!-- Fuente Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Iconos -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        window.onload = function() {
+            cargarContenidoInicio();
+        }
+    </script>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header id="cabecera" class="altura60">
+        <div id="cabeceraLogo" >
+            <a href="/index.html" title="Volver a la página principal"><img src="/img/logo.png" alt="Logo de buscaPhone" /></a>
+        </div>
+
+        <div id="cabeceraBotonMenu" class="enlaceAlt alinearIzquierda" onclick="mostrarOcultarMenu()">
+            <i class="material-icons">menu</i>
+            <p>Menú</p>
+        </div>
+        
+        <div id="cabeceraBusqueda">
+            <div id="contenedorResultadosBusqueda" style="position: relative; width: 0; height: 0">
+                    <div id="resultadosBusqueda"></div>
+            </div>
+            <input id="cajaBusqueda" type="text" placeholder="¿Buscas algo concreto?" onkeyup="buscar(this.value)"/>
+            <input type="button" value="Buscar" onclick="location.href='/html/explorar.html?buscar=' + cajaBusqueda.value + '';" />
+        </div>
+
+        <div id="cabeceraBotonBusqueda" class="enlaceAlt alinearDerecha" onclick="mostrarOcultarBusqueda()">
+            <i class="material-icons">search</i>
+            <p>Buscar</p>
+        </div>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu" class="elementoOculto">
+        <ul class="nivel1">
+            <h3 class="nombreSeccion">Categorías</h3>
+            <li>
+                <a id="enlaceSubmenuTipoDispositivo" class="enlaceAlt" href="/html/explorar.html?cat=1,2">Móviles</a>
+                <ul id="submenuTipoDispositivo" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=1">Móvil básico</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=2">Smartphone</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a id="enlaceSubmenuWereables" class="enlaceAlt" href="/html/explorar.html?cat=3,4">Wereables</a>
+                <ul id="submenuWereables" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=3">Pulseras de actividad física</a>
+                    </li>
+                    
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=4">Smartwatches</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a id="enlaceSubmenuAccesorios" class="enlaceAlt" href="/html/explorar.html?cat=5,6,7,8">Accesorios</a>
+                <ul id="submenuAccesorios" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=5">Carcasas y fundas</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=6">Protectores de pantalla</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=7">Cargadores y cables USB</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=8">Almacenamiento extraible</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="enlaceAlt" href="/html/explorar.html?cat=9">Gafas de RV</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Contenido de la página -->
+    <div class="contenido">
+        <div id="novedades" class="contenedorSeccion">
+            <img id="novedadesImagen" src="/img/paseImagenes/imagen1.png" alt="Pase de imágenes"/>
+        </div>
+
+        <div class="contenedorSeccion">
+            <h3 class="nombreSeccion">Sugerencias</h3>
+            <div id="parrillaHorizontal">
+                <ul id="parrillaSugerencias" class="parrilla">
+    
+                </ul>
+            </div>
+        </div>
+
+        <div id="botonesInferioresInicio" class="contenedorSeccion">
+            <div class="enlaceAlt alinearDerecha" onclick="location.href='html/explorar.html';">
+                <p style="display: inline-block">Ver todos los productos</p>
+                <i class="material-icons">arrow_right_ios</i>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Pie de página -->
+    <footer id="pieDePagina">
+        <ul>
+            <h3 class="nombreSeccion">Tiendas soportadas</h3>
+            <li><a href="http://www.amazon.es">Amazon España</a></li>
+            <li><a href="http://www.carrefour.es">Carrefour</a></li>
+            <li><a href="http://www.elcorteingles.es">El Corte Inglés</a></li>
+            <li><a href="http://www.pccomponentes.com">PcComponentes</a></li>
+        </ul>
+        <ul>
+            <h3 class="nombreSeccion">Enlaces</h3>
+            <li><a href="/html/contacto.html">Contacto</a></li>
+        </ul>
+    </footer>
+
+    <!-- Overlay -->
+    <div id="overlay" class="elementoOculto"></div>
+</body>
+</html>

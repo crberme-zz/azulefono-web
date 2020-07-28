@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="utf-8" />
+    <title>Explorar - buscaPhone</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/explorar.css" />
+    <script src="/js/main.js"></script>
+    <script src="/js/explorar.js"></script>
+    <script src="/js/maps.js"></script>
+    <!-- Fuente Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Iconos -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyC0NzEMklNLnLVpD5uQWlCz-csMtcVgKsY"></script>	
+    <script>
+        window.onload = function() {
+            crearOyentesFiltros();
+            cargarContenidoExplorar("");
+        }
+    </script>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header id="cabecera" class="altura60">
+        <div id="cabeceraLogo" >
+            <a href="/index.html" title="Volver a la página principal"><img src="/img/logo.png" alt="Logo de buscaPhone" /></a>
+        </div>
+
+        <div id="cabeceraBotonMenu" class="enlaceAlt alinearIzquierda" onclick="mostrarOcultarMenu()">
+            <i class="material-icons">menu</i>
+            <p>Menú</p>
+        </div>
+        
+        <div id="cabeceraBusqueda">
+            <div id="contenedorResultadosBusqueda" style="position: relative; width: 0; height: 0">
+                    <div id="resultadosBusqueda"></div>
+            </div>
+            <input id="cajaBusqueda" type="text" placeholder="Escribe aquí para filtrar los resultados" onkeyup="actualizarParrilla()" />
+            <input type="button" value="Buscar" onclick="actualizarParrilla()" />
+        </div>
+
+        <div id="cabeceraBotonBusqueda" class="enlaceAlt alinearDerecha" onclick="mostrarOcultarBusqueda()">
+            <i class="material-icons">search</i>
+            <p>Buscar</p>
+        </div>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu" class="elementoOculto">
+        <ul class="nivel1">
+            <h3 class="nombreSeccion">Categorías</h3>
+            <li>
+                <a id="enlaceSubmenuTipoDispositivo" class="enlaceAlt" href="/html/explorar.html?cat=1,2">Móviles</a>
+                <ul id="submenuTipoDispositivo" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=1">Móvil básico</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=2">Smartphone</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a id="enlaceSubmenuWereables" class="enlaceAlt" href="/html/explorar.html?cat=3,4">Wereables</a>
+                <ul id="submenuWereables" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=3">Pulseras de actividad física</a>
+                    </li>
+                    
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=4">Smartwatches</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a id="enlaceSubmenuAccesorios" class="enlaceAlt" href="/html/explorar.html?cat=5,6,7,8">Accesorios</a>
+                <ul id="submenuAccesorios" class="nivel2">
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=5">Carcasas y fundas</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=6">Protectores de pantalla</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=7">Cargadores y cables USB</a>
+                    </li>
+
+                    <li>
+                        <a class="enlaceAlt" href="/html/explorar.html?cat=8">Almacenamiento extraible</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="enlaceAlt" href="/html/explorar.html?cat=9">Gafas de RV</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Migas -->
+    <div class="migas">
+        <div class="enlaceAlt" style="display:inline-block" onclick="location.href='/index.html'">
+            <i class="material-icons">home</i>
+            <p>Inicio</p>
+        </div>
+        <i class="material-icons">arrow_forward</i>
+        <p>Explorar</p>
+    </div>
+
+    <!-- Contenido de la página -->
+    <div class="contenido">
+        <div id="contenedorMapa" class="elementoOculto">
+            <div id="mapa"></div>
+        </div>
+        <div id="filtros">
+            <div id="botonMapa" class="enlaceAlt" onclick="mostrarOcultarMapa()">
+                <i class="material-icons icon-white">location_on</i>
+                <h3 class="nombreSeccion">Ver mapa</h3>
+            </div>
+            <div class="filtroDesplegable">
+                <h3 class="nombreSeccion">Vista</h3>
+                <select name="vista" onchange="cambiarVistaParrilla(this.value)">
+                    <option value="ficha" selected>Ficha</option>
+                    <option value="detalle">Detalle</option>
+                </select>
+            </div>
+            <h3 class="nombreSeccion">Filtros</h3>
+            <form name="filtros" onchange="actualizarParrilla()">
+                <div class="filtroDesplegable">
+                    <h4 class="nombreFiltro">Tienda</h4>
+                    <select name="tienda">
+                        <option value="todas">Todas las tiendas</option>
+                        <option value="1">Amazon</option>
+                        <option value="2">Carrefour</option>
+                        <option value="3">El Corte Inglés</option>
+                        <option value="4">PcComponentes</option>
+                    </select>
+                </div>
+                <div id="filtrosCategorias">
+                    <h4 class="nombreFiltro">Categorías</h4>
+
+                    <div>
+                        <input type="radio" name="categoria" value="Todas" checked/>
+                        <label for="categoriaTodo">Todas las categorías</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="categoria" value="Moviles"/>
+                        <label for="categoriaMoviles">Móviles</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="categoria" value="Wereables"/>
+                        <label for="categoriaWereables">Wereables</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="categoria" value="Accesorios"/>
+                        <label for="categoriaAccesorios">Accesorios</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="categoria" value="GafasRV"/>
+                        <label for="categoriaGafasRV">Gafas RV</label>
+                    </div>
+                </div>
+
+                <div id="filtrosCategoriaMoviles" class="elementoOculto">
+                    <h4 class="nombreFiltro">Subcategorías</h4>
+
+                    <div>
+                        <input type="radio" name="subcategoriaMoviles" value="Todas" checked/>
+                        <label for="subcategoriaMoviles">Todas las subcategorías</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="subcategoriaMoviles" value="MovilBasico" />
+                        <label for="subcategoriaMoviles">Móvil básico</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="subcategoriaMoviles" value="Smartphone" />
+                        <label for="subcategoriaMoviles">Smartphone</label>
+                    </div>
+                </div>
+
+                <div id="filtrosCategoriaWereables" class="elementoOculto">
+                    <h4 class="nombreFiltro">Subcategorías</h4>
+
+                    <div>
+                        <input type="radio" name="subcategoriaWereables" value="Todas" checked/>
+                        <label for="subcategoriaWereables">Todas las subcategorías</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="subcategoriaWereables" value="PulseraActividad" />
+                        <label for="subcategoriaWereables">Pulsera de actividad física</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="subcategoriaWereables" value="Smartwatch" />
+                        <label for="subcategoriaWereables">Smartwatch</label>
+                    </div>
+                </div>
+
+                <div id="filtrosCategoriaAccesorios" class="elementoOculto">
+                    <h4 class="nombreFiltro">Subcategorías</h4>
+
+                    <div>
+                        <input type="radio" name="subcategoriaAccesorios" value="Todas" checked />
+                        <label for="subcategoriaAccesorios">Todas las subcategorías</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="subcategoriaAccesorios" value="CarcasasFundas" />
+                        <label for="subcategoriaAccesorios">Carcasas y fundas</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="subcategoriaAccesorios" value="ProtectoresPantalla" />
+                        <label for="subcategoriaAccesorios">Protectores de pantalla</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="subcategoriaAccesorios" value="Cargadores" />
+                        <label for="subcategoriaAccesorios">Cargadores y cables USB</label>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="subcategoriaAccesorios" value="Almacenamiento" />
+                        <label for="subcategoriaAccesorios">Almacenamiento extraible</label>
+                    </div>
+                </div>
+
+                <div id="filtrosSubcategorias">
+
+                    <div id="filtrosSubcategoriaMovilBasico" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+
+                        <div>
+                            <input type="checkbox" name="filtroMovilBarato" value="concha" />
+                            <label for="filtroMovilBarato">Diseño de concha</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroMovilBarato" value="sos" />
+                            <label for="filtroMovilBarato">Botón SOS</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaSmartphone" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+                        <div>
+                            <input type="checkbox" name="filtroSmartphone" value="mascamaras" />
+                            <label for="filtroSmartphone">Varias cámaras</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroSmartphone" value="todopantalla" />
+                            <label for="filtroSmartphone">Diseño "Todo pantalla"</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroSmartphone" value="usbc" />
+                            <label for="filtroSmartphone">USB tipo C</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroSmartphone" value="jack35" />
+                            <label for="filtroSmartphone">Contector Jack 3.5mm</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaPulseraActividad" class="elementoOculto"> 
+                        <h4 class="nombreFiltro">Características</h4>     
+                        <div>
+                            <input type="checkbox" name="filtroPulseraActividad" value="sumergible" />
+                            <label for="filtroPulseraActividad">Sumergible</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroPulseraActividad" value="tactil" />
+                            <label for="filtroPulseraActividad">Pantalla táctil</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaSmartwatch" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+
+                        <div>
+                            <input type="checkbox" name="filtroSmartwatch" value="nfc" />
+                            <label for="filtroSmartwatch">Conectividad NFC</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroSmartwatch" value="wifi" />
+                            <label for="filtroSmartwatch">Wifi</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaCarcasasFundas" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasCarcasasFundas" value="duro" />
+                            <label for="filtroCaracteristicasCarcasasFundas">Material Duro</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasCarcasasFundas" value="cubrepantalla" />
+                            <label for="filtroCaracteristicasCarcasasFundas">Cubre la pantalla</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaProtectoresPantalla" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasProtectoresPantalla" value="plastico" />
+                            <label for="filtroCaracteristicasProtectoresPantalla">De plástico</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasProtectoresPantalla" value="vidrio" />
+                            <label for="filtroCaracteristicasProtectoresPantalla">De vídrio</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaCargadores" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasCargadores" value="apple" />
+                            <label for="filtroCaracteristicasCargadores">Conector Lightning</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasCargadores" value="microusb" />
+                            <label for="filtroCaracteristicasCargadores">Conector MicroUSB</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasCargadores" value="usbc" />
+                            <label for="filtroCaracteristicasCargadores">USB tipo C</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaAlmacenamiento" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasAlmacenamiento" value="adaptador" />
+                            <label for="filtroCaracteristicasAlmacenamiento">Adaptador incluido</label>
+                        </div>
+                            
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasAlmacenamiento" value="16g" />
+                            <label for="filtroCaracteristicasAlmacenamiento">16 GB</label>
+                        </div>
+                            
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasAlmacenamiento" value="32g" />
+                            <label for="filtroCaracteristicasAlmacenamiento">32 GB</label>
+                        </div>
+                            
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasAlmacenamiento" value="64g" />
+                            <label for="filtroCaracteristicasAlmacenamiento">64 GB</label>
+                        </div>
+                            
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasAlmacenamiento" value="128g" />
+                            <label for="filtroCaracteristicasAlmacenamiento">128 GB</label>
+                        </div>
+                    </div>
+
+                    <div id="filtrosSubcategoriaGafasRV" class="elementoOculto">
+                        <h4 class="nombreFiltro">Características</h4>
+                        <div>
+                            <input type="checkbox" name="filtroCaracteristicasGafasRV" value="samsung" />
+                            <label for="filtroCaracteristicasGafasRV">Para móviles Samsung Galaxy</label>
+                        </div>
+
+                        <div>
+                           <input type="checkbox" name="filtroCaracteristicasGafasRV" value="cualquiera" />
+                           <label for="filtroCaracteristicasGafasRV">Para cualquier dispositivo</label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div id="parrillaResultados">
+            <h3 class="nombreSeccion">Productos</h3>
+            <div id="leyendaDetalle" class="elementoOculto">
+                <h4 class="nombreFiltro">Nombre del producto</h4>
+                <h4 class="nombreFiltro">Caraterísticas</h4>
+            </div>
+            <ul id="parrillaExplorar" class="parrilla">
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer id="pieDePagina">
+        <ul>
+            <h3 class="nombreSeccion">Tiendas soportadas</h3>
+            <li><a href="http://www.amazon.es">Amazon España</a></li>
+            <li><a href="http://www.carrefour.es">Carrefour</a></li>
+            <li><a href="http://www.elcorteingles.es">El Corte Inglés</a></li>
+            <li><a href="http://www.pccomponentes.com">PcComponentes</a></li>
+        </ul>
+        <ul>
+            <h3 class="nombreSeccion">Enlaces</h3>
+            <li><a href="/html/contacto.html">Contacto</a></li>
+        </ul>
+    </footer>
+    <!-- Overlay -->
+    <div id="overlay" class="elementoOculto"></div>
+    <div id="overlayMapa" class="elementoOculto" onclick="mostrarOcultarMapa()"></div>
+</body>
+</html>

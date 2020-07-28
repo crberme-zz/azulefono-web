@@ -1,0 +1,194 @@
+/* CSS para la barra lateral de los filtros */
+#filtros {
+    float: left;
+    width: 300px;
+    height: 100%;
+    padding-left: 20px;
+    margin-top: 30px;
+}
+
+#filtros > div {
+    margin-bottom: 20px;
+}
+
+#filtros > form > div {
+    margin-bottom: 20px;
+}
+
+.nombreFiltro {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+#botonMapa {
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+#botonMapa h3{
+    display: inline-block;
+}
+
+.filtroDesplegable select, #botonMapa {
+    width: 90%;
+}
+
+/* CSS para la parrilla */
+#parrillaResultados {
+    width: 100%;
+}
+
+#parrillaExplorar {
+    flex-wrap: wrap;
+}
+
+#parrillaExplorar .parrillaItem {
+    margin: 10px 20px 10px 0;
+}
+
+/* Vista detalle */
+.parrillaDetalle {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+}
+
+.parrillaDetalle .parrillaItem {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+.parrillaDetalle .parrillaItem img {
+    display: none;
+}
+
+.parrillaDetalle .parrillaItem a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: #000000;
+}
+
+.parrillaDetalle .parrillaItem a:hover {
+    font-weight: bold;
+}
+
+.parrillaDetalle .parrillaItem p {
+    text-align: left;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 30%;
+    line-height: 60px;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.parrillaDetalle .parrillaCaracteristicas {
+    display: inline-block !important;
+    width: 70%;
+    line-height: 60px;
+}
+
+#leyendaDetalle {
+    width: 90%;
+}
+
+#leyendaDetalle h4:first-child {
+    display: inline-block;
+    width: 30%;
+}
+
+#leyendaDetalle h4:last-child {
+    display: inline-block;
+    margin-left: -40px;
+}
+
+#contenedorMapa {
+    width: 75%;
+    height: 75%;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 3;
+}
+
+#mapa {
+    width: 100%;
+    height: 100%;
+}
+
+#mapa * {
+    z-index: 3;
+}
+
+#overlayMapa { /* Revisar este nombre */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    z-index: 1;
+    content: "&nbsp";
+}
+
+@media (max-width:768px) {
+    #filtros {
+        width: 100%;
+        float: none;
+        text-align: center;
+        padding-left: 0;
+    }
+
+    #filtros > form > div > div, #filtrosSubcategorias > div > div {
+        display: inline-block;
+    }
+
+    #parrillaResultados {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #vistas select, #botonMapa {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 320px) {
+    #filtros, #parrillaResultados {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #filtros {
+        text-align: start;
+    }
+
+    #filtros > form > div > div, #filtrosSubcategorias > div > div {
+        display: block;
+    }
+
+    #contenedorMapa {
+        width: 100%;
+        height: 75%;
+    }
+}
