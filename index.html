@@ -17,29 +17,7 @@
 </head>
 <body>
     <!-- Cabecera -->
-    <header id="cabecera" class="altura60">
-        <div id="cabeceraLogo" >
-            <a href="/index.html" title="Volver a la página principal"><img src="/img/logo.png" alt="Logo de buscaPhone" /></a>
-        </div>
-
-        <div id="cabeceraBotonMenu" class="enlaceAlt alinearIzquierda" onclick="mostrarOcultarMenu()">
-            <i class="material-icons">menu</i>
-            <p>Menú</p>
-        </div>
-        
-        <div id="cabeceraBusqueda">
-            <div id="contenedorResultadosBusqueda" style="position: relative; width: 0; height: 0">
-                    <div id="resultadosBusqueda"></div>
-            </div>
-            <input id="cajaBusqueda" type="text" placeholder="¿Buscas algo concreto?" onkeyup="buscar(this.value)"/>
-            <input type="button" value="Buscar" onclick="location.href='/html/explorar.html?buscar=' + cajaBusqueda.value + '';" />
-        </div>
-
-        <div id="cabeceraBotonBusqueda" class="enlaceAlt alinearDerecha" onclick="mostrarOcultarBusqueda()">
-            <i class="material-icons">search</i>
-            <p>Buscar</p>
-        </div>
-    </header>
+    <div id="nav-bar"></div>
 
     <!-- Menu -->
     <nav id="menu" class="elementoOculto">
@@ -141,5 +119,6 @@
     <div id="overlay" class="elementoOculto"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="components/NavBar/NavBar.js"></script>
 </body>
 </html>
